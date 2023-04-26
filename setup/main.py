@@ -48,7 +48,6 @@ def write_bq(df: pd.DataFrame) -> None:
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
         chunksize=500_000,
         if_exists="append"
-
     )
 
 @flow
@@ -58,7 +57,6 @@ def etl_web_to_gcs() -> None:
     dataset_url = "https://wri-dataportal-prod.s3.amazonaws.com/manual/global_power_plant_database_v_1_3.zip"
 
     df = fetch(dataset_url)
-    # df_clean = clean(df)
     path = write_local(df,dataset_file)
     write_gcs(path, dataset_file)
     write_bq(df)
